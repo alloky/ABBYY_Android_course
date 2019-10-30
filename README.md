@@ -1,3 +1,3 @@
 # Android course in ABBYY
-
-## author: Ivanin Vitaly
+ 
+author: Ivanin Vitaly
