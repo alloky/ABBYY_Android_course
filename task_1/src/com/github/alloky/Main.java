@@ -1,9 +1,9 @@
-package com.github.alloky;
+package com.github.alloky.task_1;
 
 // don't remove default imports
 // for portability purposes
 
-import com.github.alloky.Point;
+import com.github.alloky.task_1.Point;
 
 public class Main {
     public static void main(String[] args) {

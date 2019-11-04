@@ -1,4 +1,4 @@
-package com.github.alloky;
+package com.github.alloky.task_1;
 
 import java.util.Objects;
 
