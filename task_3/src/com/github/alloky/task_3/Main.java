@@ -131,7 +131,7 @@ public class Main {
                         .println("Invalid input! Please enter /'yes/' or /'n/'");
             }
         }
-        return yesOrNo.toUpperCase().equals("Y");
+        return yesOrNo.toLowerCase().equals("yes");
     }
 
     public static String getConsoleInput() {
