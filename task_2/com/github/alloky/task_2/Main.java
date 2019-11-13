@@ -15,23 +15,35 @@ class Main {
         int cols = 7;
         Integer[][] arr = new Integer[rows][cols];
 
-        for(int i = 0; i < rows; ++i){
-            for (int j = 0; j < cols; ++j){
-                arr[i][j] = ThreadLocalRandom.current().nextInt(10);
-            }
-        }
+        fill2dRandom(arr);
+        sort2dByRows(arr);
+        print2dArray(rows, cols, arr);
+    }
 
-        for(int i = 0; i < rows; ++i) {
-            Arrays.sort(arr[i], Collections.reverseOrder());
-        }
-
+    private static void print2dArray(int rows, int cols, Integer[][] arr) {
         for(int i = 0; i < rows; ++i){
             for (int j = 0; j < cols; ++j){
                 System.out.print(arr[i][j] + " ");
             }
             System.out.println();
         }
+    }
 
+    private static void sort2dByRows(Integer[][] arr) {
+        int rows = arr.length;
+        for(int i = 0; i < rows; ++i) {
+            Arrays.sort(arr[i], Collections.reverseOrder());
+        }
+    }
 
+    private static void fill2dRandom(Integer[][] arr) {
+        int rows = arr.length;
+        int cols = arr[0].length;
+
+        for(int i = 0; i < rows; ++i){
+            for (int j = 0; j < cols; ++j){
+                arr[i][j] = ThreadLocalRandom.current().nextInt(10);
+            }
+        }
     }
 }

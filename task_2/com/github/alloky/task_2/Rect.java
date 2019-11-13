@@ -11,12 +11,12 @@ public class Rect {
         return bottomRight;
     }
 
-    public Rect(Point topLeft, Point bottomDown) {
-        if( topLeft.getX() >= bottomDown.getX()  || topLeft.getY() <= bottomDown.getY()){
+    public Rect(Point topLeft, Point bottomRight) {
+        if( topLeft.getX() >= bottomRight.getX()  || topLeft.getY() <= bottomRight.getY()){
             throw new IllegalArgumentException();
         }
         this.topLeft = topLeft;
-        this.bottomRight = bottomDown;
+        this.bottomRight = bottomRight;
     }
 
 
