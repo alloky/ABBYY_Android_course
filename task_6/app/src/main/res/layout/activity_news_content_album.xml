@@ -1,0 +1,67 @@
+<androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/news_content_body"
+    android:layout_width="match_parent"
+    android:layout_height="232dp"
+    android:background="#00FFFFFF"
+    android:minHeight="200dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:id="@+id/news_image"
+        android:layout_width="116dp"
+        android:layout_height="122dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        android:background="@color/cardview_dark_background"
+        />
+
+    <TextView
+        android:id="@+id/news_date"
+        android:layout_width="92dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:clickable="false"
+        android:contextClickable="false"
+        android:ems="6"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/news_image"
+        app:layout_constraintTop_toBottomOf="@+id/news_header" />
+
+    <TextView
+        android:id="@+id/news_text"
+        android:layout_width="247dp"
+        android:layout_height="144dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:clickable="false"
+        android:contextClickable="false"
+        android:duplicateParentState="true"
+        android:ems="10"
+        android:gravity="start|top"
+        android:linksClickable="false"
+        android:longClickable="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/news_image"
+        app:layout_constraintTop_toBottomOf="@+id/news_date" />
+
+    <TextView
+        android:id="@+id/news_header"
+        android:layout_width="116dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:clickable="false"
+        android:contextClickable="false"
+        android:text="TextView"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/news_image"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -49,10 +49,11 @@ class NewsListAdapter(dataset: List<NewsPreview>) : RecyclerView.Adapter<NewsLis
 
         holder.setHeader(cur_item.header + position)
         holder.setDate(dateString)
-        holder.setDescription(cur_item.description)
+        holder.setDescription(cur_item.description + position)
         holder.setImgView(cur_item.imgId)
 
     }
+
 
 
     class ItemViewHolder(itemView: LinearLayout) : RecyclerView.ViewHolder(itemView) {
@@ -88,6 +89,8 @@ class NewsListAdapter(dataset: List<NewsPreview>) : RecyclerView.Adapter<NewsLis
 
         fun onNewsItemClick(view: View) {
             val i = Intent(itemView.context, NewsContentActivity::class.java)
+            i.putExtra("CONTENT", description.text);
+            i.putExtra("HEADER", header.text);
             itemView.context.startActivity(i)
         }
 
