@@ -26,12 +26,9 @@ import kotlin.math.log
 
 class NewsListAdapter(dataset: List<NewsPreview>) : RecyclerView.Adapter<NewsListAdapter.ItemViewHolder>() {
     var data : List<NewsPreview> = dataset;
-    var context : Context? = null;
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        this.context = parent.context
-
-        var itemView = LayoutInflater.from(parent.context)
+        val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.news_list_item, parent, false) as LinearLayout
 
         return ItemViewHolder(itemView)
@@ -42,7 +39,7 @@ class NewsListAdapter(dataset: List<NewsPreview>) : RecyclerView.Adapter<NewsLis
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        var cur_item = data[position]
+        val cur_item = data[position]
 
         val formatter = SimpleDateFormat("dd MM yyyy", Locale.CANADA)
         val dateString = formatter.format(cur_item.date)
@@ -57,10 +54,10 @@ class NewsListAdapter(dataset: List<NewsPreview>) : RecyclerView.Adapter<NewsLis
 
 
     class ItemViewHolder(itemView: LinearLayout) : RecyclerView.ViewHolder(itemView) {
-        private var header: TextView = itemView.findViewById(R.id.news_header)
-        private var date: TextView = itemView.findViewById(R.id.news_date)
-        private var description: TextView = itemView.findViewById(R.id.news_text)
-        private var imgView: ImageView = itemView.findViewById(R.id.news_image)
+        private val header: TextView = itemView.findViewById(R.id.news_header)
+        private val date: TextView = itemView.findViewById(R.id.news_date)
+        private val description: TextView = itemView.findViewById(R.id.news_text)
+        private val imgView: ImageView = itemView.findViewById(R.id.news_image)
 
         init {
             itemView.setOnClickListener(View.OnClickListener(){ it: View? ->

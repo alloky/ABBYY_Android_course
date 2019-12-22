@@ -25,30 +25,27 @@ class NewsContentActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        var orientation = getResources().getConfiguration().orientation
-
+        val orientation = getResources().getConfiguration().orientation
         setupOritentation(orientation)
-
     }
 
     private fun setupOritentation( orientation: Int) {
-        var content = getIntent().getStringExtra("CONTENT")
-        var header = getIntent().getStringExtra("HEADER")
+        val content = getIntent().getStringExtra("CONTENT")
+        val header = getIntent().getStringExtra("HEADER")
 
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             setContentView(R.layout.activity_news_content)
 
-            var itemView = findViewById<LinearLayout>(R.id.news_content_body)
+            val itemView = findViewById<LinearLayout>(R.id.news_content_body)
 
-            setupLayout(itemView, content)
+            setupLayout(itemView, header, content)
         }
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             setContentView(R.layout.activity_news_content_album)
 
-            var itemView = findViewById<ConstraintLayout>(R.id.news_content_body)
+            val itemView = findViewById<ConstraintLayout>(R.id.news_content_body)
 
-            setupLayout(itemView, content)
+            setupLayout(itemView, header, content)
         }
     }
 
@@ -58,29 +55,25 @@ class NewsContentActivity : AppCompatActivity() {
         setupOritentation(newConfig.orientation)
     }
 
-    fun setupLayout(itemView: View, conent: String?){
-        var header: TextView = itemView.findViewById(R.id.news_header)
-        var date: TextView = itemView.findViewById(R.id.news_date)
-        var description: TextView = itemView.findViewById(R.id.news_text)
-        var imgView: ImageView = itemView.findViewById(R.id.news_image)
-
-        header.setText("Hello")
+    fun setupLayout(itemView: View, hdr: String?, conent: String?){
+        val header: TextView = itemView.findViewById(R.id.news_header)
+        val description: TextView = itemView.findViewById(R.id.news_text)
 
         if (conent != null) {
             description.setText(conent)
+        }
+
+        if (hdr != null) {
+            header.setText(hdr)
         }
 
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        var orientation = getResources().getConfiguration().orientation
+        val orientation = getResources().getConfiguration().orientation
         setupOritentation(orientation)
 
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        // Save the values you need from your textview into "outState"-object
-        super.onSaveInstanceState(outState)
-    }
 }
