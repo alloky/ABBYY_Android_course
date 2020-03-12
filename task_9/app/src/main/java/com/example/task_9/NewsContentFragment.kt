@@ -38,6 +38,11 @@ class NewsContentFragment : Fragment() {
         content = arguments?.getString("CONTENT")
         header = arguments?.getString("HEADER")
 
+        if (content == null && header == null){
+            rootView = inflater.inflate(R.layout.activity_news_content_empty, container, false)
+            return rootView
+        }
+
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             rootView = inflater.inflate(R.layout.activity_news_content, container, false)
 

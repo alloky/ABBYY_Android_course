@@ -1,5 +1,6 @@
 package com.example.task_9
 
+import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.FragmentActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.text.SimpleDateFormat
 import java.util.*
@@ -23,7 +25,7 @@ class NewsListAdapter(dataset: List<NewsPreview>, act: FragmentActivity?, rv_: R
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.news_list_item, parent, false) as LinearLayout
+            .inflate(R.layout.news_list_item_album, parent, false) as LinearLayout
 
         return ItemViewHolder(itemView, curAct, rv)
     }
@@ -90,8 +92,16 @@ class NewsListAdapter(dataset: List<NewsPreview>, act: FragmentActivity?, rv_: R
             var f = NewsContentFragment.newInstance(header.text.toString(), description.text.toString())
             val fragmentManager = act?.getSupportFragmentManager()
             val fragmentTransaction = fragmentManager?.beginTransaction()
-            fragmentTransaction?.replace(R.id.headlines_fragment, f)
-            fragmentTransaction?.addToBackStack(f.javaClass.getName())
+            val is_phone = act?.resources?.getBoolean(R.bool.is_phone)
+            val orientation = act?.getResources()?.getConfiguration()?.orientation
+            if (!is_phone!! && orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                fragmentTransaction?.replace(R.id.details, f)
+                fragmentTransaction?.addToBackStack(f.javaClass.getName())
+            } else {
+                fragmentTransaction?.replace(R.id.headlines_fragment, f)
+                fragmentTransaction?.addToBackStack(f.javaClass.getName())
+            }
+
             fragmentTransaction?.commit()
 
             if (rv != null) {

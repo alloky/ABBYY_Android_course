@@ -1,13 +1,14 @@
 package com.example.task_9
 
 import android.annotation.SuppressLint
+import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
 import android.view.MotionEvent
 import android.view.View
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -25,7 +26,23 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        val orientation = getResources().getConfiguration().orientation
+
+        val is_phone = resources.getBoolean(R.bool.is_phone)
+        if (!is_phone) {
+
+            if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+                setContentView(R.layout.activity_main)
+            }
+
+            if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                setContentView(R.layout.activity_main_album)
+            }
+        } else {
+            setContentView(R.layout.activity_main)
+        }
+
+
         setSupportActionBar(toolbar)
 
         val fragmentManager = getSupportFragmentManager()

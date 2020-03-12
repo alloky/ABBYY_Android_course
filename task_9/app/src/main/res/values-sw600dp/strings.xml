@@ -4,5 +4,5 @@
 
 <!--    &lt;!&ndash; TODO: Remove or change this placeholder text &ndash;&gt;-->
 <!--    <string name="hello_blank_fragment">Hello blank fragment</string>-->
-    <bool name="is_phone">true</bool>
+    <bool name="is_phone">false</bool>
 </resources>

@@ -10,10 +10,14 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.NestedScrollView
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import java.util.*
+import com.example.task_9.R
+
+
 
 
 
@@ -48,6 +52,12 @@ class HeadlinesFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_headlines, container, false)
 
         var viewManager = LinearLayoutManager(activity)
+        val is_phone = resources.getBoolean(R.bool.is_phone)
+        if (!is_phone) {
+            viewManager = GridLayoutManager(activity, 2)
+        }
+
+
 
 //        var recyclerView = (RecyclerView) rootView.findViewById(R.id.main_list);
         var recyclerView = rootView.findViewById<NestedScrollView>(R.id.nestedScrollView).findViewById<RecyclerView>(R.id.main_list).apply {
