@@ -1,6 +1,8 @@
 package com.example.task_9
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
@@ -13,24 +15,23 @@ import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.task_9.dataManagment.NewsPreview
+import com.example.task_9.dataManagment.NewsRepository
+import kotlinx.coroutines.*
 
 import java.util.*
-import com.example.task_9.R
-
-
-
-
-
+import kotlin.collections.ArrayList
 
 private const val ARG_PARAM1 = "dataset"
 
 class HeadlinesFragment : Fragment() {
     var newsList: RecyclerView? = null
     val BUNDLE_NEWSLIST_LAYOUT = "mainactivity.newslist"
+    var _rootView: View? = null
+    var job: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -38,58 +39,82 @@ class HeadlinesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+//        var newsArray = getNewNewsArray()
+//
+//        for (news in newsArray){
+//            App.newsRepository.create(news)
+//        }
 
-        var myDataset = arrayListOf<NewsPreview>()
 
-        myDataset.add(NewsPreview("News", Date(116, 4, 24), "Some text", R.color.colorPrimaryDark))
-        myDataset.add(NewsPreview("News", Date(116, 4, 24), "Some text", R.color.colorPrimaryDark))
-        myDataset.add(NewsPreview("News", Date(116, 4, 24), "Some text", R.color.colorPrimaryDark))
-        myDataset.add(NewsPreview("News", Date(116, 4, 24), "Some text", R.color.colorPrimaryDark))
-        myDataset.add(NewsPreview("News", Date(116, 4, 24), "Some text", R.color.colorPrimaryDark))
-        myDataset.add(NewsPreview("News", Date(116, 4, 24), "Some text", R.color.colorPrimaryDark))
-        myDataset.add(NewsPreview("News", Date(116, 4, 24), "Some text", R.color.colorPrimaryDark))
-
-        val rootView = inflater.inflate(R.layout.fragment_headlines, container, false)
 
         var viewManager = LinearLayoutManager(activity)
+
+        val orientation = activity?.getResources()?.getConfiguration()?.orientation
         val is_phone = resources.getBoolean(R.bool.is_phone)
-        if (!is_phone) {
+        if (!is_phone && orientation == Configuration.ORIENTATION_PORTRAIT) {
             viewManager = GridLayoutManager(activity, 2)
         }
 
+        var rootView: View? = null;
+        rootView = inflater.inflate(R.layout.fragment_headlines, container, false)
 
-
-//        var recyclerView = (RecyclerView) rootView.findViewById(R.id.main_list);
-        var recyclerView = rootView.findViewById<NestedScrollView>(R.id.nestedScrollView).findViewById<RecyclerView>(R.id.main_list).apply {
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
+        var recyclerView = rootView?.findViewById<NestedScrollView>(R.id.nestedScrollView)?.findViewById<RecyclerView>(R.id.main_list).apply {
             this?.setHasFixedSize(true)
-
-            // use a linear layout manager
             this?.layoutManager = viewManager
-
-//            // specify an viewAdapter (see also next example)
-//            this?.adapter = viewAdapter
         }
 
-        var viewAdapter = NewsListAdapter(myDataset, activity, recyclerView)
-        recyclerView.adapter = viewAdapter;
+        job = GlobalScope.launch(context = Dispatchers.Main) {
+            val newsArray = App.getNewsFromDb()
+            val viewAdapter = NewsListAdapter(newsArray, activity, recyclerView)
+            recyclerView?.adapter = viewAdapter;
 
-        recyclerView?.setOnTouchListener { v, event -> onTouch(v, event) }
-        this.newsList = recyclerView
-        if (savedInstanceState != null) {
-            val savedRecyclerLayoutState = savedInstanceState.getParcelable<HeadlinesFragment.SavedState>(BUNDLE_NEWSLIST_LAYOUT)
-            newsList?.scrollToPosition(savedRecyclerLayoutState?.mScrollPosition!!)
+            recyclerView?.setOnTouchListener { v, event -> onTouch(v, event) }
+            newsList = recyclerView
+            if (savedInstanceState != null) {
+                val savedRecyclerLayoutState = savedInstanceState.getParcelable<HeadlinesFragment.SavedState>(BUNDLE_NEWSLIST_LAYOUT)
+                newsList?.scrollToPosition(savedRecyclerLayoutState?.mScrollPosition!!)
+            }
+
         }
 
         return rootView
     }
 
 
+    fun getNewNewsArray(): ArrayList<NewsPreview> {
+        val newsArray = arrayListOf<NewsPreview>()
+
+        for(i in 1..10) {
+            newsArray.add(
+                NewsPreview(-1,
+                    "News ${i}",
+                    Date(116, 4, 24),
+                    "Some text ${i}",
+                    ""
+                )
+            )
+        }
+        return newsArray
+    }
+
+
+
     fun onTouch(v: View, event: MotionEvent): Boolean {
         return false
     }
 
+
+    override fun onResume() {
+        super.onResume()
+        job = GlobalScope.launch(context = Dispatchers.Main) {
+            val newsArray = App.getNewsFromDb()
+            val viewAdapter = NewsListAdapter(newsArray, activity, newsList)
+            newsList?.adapter = viewAdapter;
+
+//            newsList?.setOnTouchListener { v, event -> onTouch(v, event) }
+
+        }
+    }
 
     public override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

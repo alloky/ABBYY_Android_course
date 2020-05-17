@@ -1,21 +1,13 @@
 package com.example.task_9
 
-import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
-import android.os.Parcel
-import android.os.Parcelable
-import android.view.MotionEvent
 import android.view.View
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 
 import kotlinx.android.synthetic.main.activity_main.*
-
-
-
-
 
 
 class MainActivity : AppCompatActivity() {
@@ -28,30 +20,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val orientation = getResources().getConfiguration().orientation
 
-        val is_phone = resources.getBoolean(R.bool.is_phone)
-        if (!is_phone) {
-
-            if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-                setContentView(R.layout.activity_main)
-            }
-
-            if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                setContentView(R.layout.activity_main_album)
-            }
-        } else {
-            setContentView(R.layout.activity_main)
-        }
-
-
+        setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        val fragmentManager = getSupportFragmentManager()
-        val fragmentTransaction = fragmentManager?.beginTransaction()
-//        val fragment = HeadlinesFragment()
-//        newsList = fragment.newsList
-//        fragmentTransaction?.replace(R.id.headlines_fragment, fragment)
-        fragmentTransaction?.addToBackStack(null)
-        fragmentTransaction?.commit()
+        if (savedInstanceState == null) {
+            val fragmentManager = getSupportFragmentManager()
+            val fragmentTransaction = fragmentManager?.beginTransaction()
+            val fragment = HeadlinesFragment()
+            fragmentTransaction?.replace(R.id.headlines_fragment, fragment)
+            fragmentTransaction?.addToBackStack(null)
+            fragmentTransaction?.commit()
+        }
     }
 
     override fun onBackPressed() {
@@ -61,6 +40,12 @@ class MainActivity : AppCompatActivity() {
             super.onBackPressed()
         }
     }
+
+    fun openCameraActivity(view: View) {
+        val intent = Intent(this, CameraActivity::class.java)
+        startActivity(intent)
+    }
+
 //    public override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
 //        super.onRestoreInstanceState(savedInstanceState)
 //

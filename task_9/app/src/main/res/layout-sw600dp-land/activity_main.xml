@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
-    <fragment android:name="com.example.task_9.HeadlinesFragment"
+    <FrameLayout
         android:id="@+id/headlines_fragment"
         android:layout_marginTop="?attr/actionBarSize"
         android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
         android:layout_width="0dp"
         android:layout_weight="1"/>
 
-    <fragment android:name="com.example.task_9.NewsContentFragment"
+    <FrameLayout
         android:id="@+id/details"
         android:layout_width="0dp"
         android:layout_height="match_parent"

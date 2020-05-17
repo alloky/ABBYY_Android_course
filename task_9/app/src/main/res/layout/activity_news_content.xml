@@ -9,8 +9,7 @@
     android:background="@color/cardview_light_background"
     android:focusable="true"
     android:clickable="true"
-    android:focusableInTouchMode="true"
-    tools:context=".NewsContentActivity">
+    android:focusableInTouchMode="true">
 
     <TextView
         android:id="@+id/news_header"

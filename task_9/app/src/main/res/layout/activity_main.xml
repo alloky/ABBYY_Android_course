@@ -20,7 +20,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <fragment android:name="com.example.task_9.HeadlinesFragment"
+    <FrameLayout
         android:id="@+id/headlines_fragment"
         android:layout_marginTop="?attr/actionBarSize"
         android:layout_width="match_parent"
@@ -28,11 +28,11 @@
         android:overScrollMode="never"
         android:layout_weight="1"/>
 
-<!--    <FrameLayout-->
-<!--        android:id="@+id/details"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_marginTop="?attr/actionBarSize"-->
-<!--        android:layout_weight="2" />-->
+    <FrameLayout
+        android:id="@+id/details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_weight="2" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
